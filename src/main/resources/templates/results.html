@@ -1,0 +1,27 @@
+<div xmlns:th="http://www.w3.org/1999/xhtml" th:each="res,iterationStatus  : ${results}">
+    <div class="mdl-cell mdl-cell--3-aol">
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title">
+                    <span class="mdl-chip mdl-chip--contact">
+                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white" th:text="${#strings.substring(res.user, 0)}"></span>
+                    <span class="mdl-chip__text" th:text="${res.user}"></span>
+                    </span>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <p th:text="${res.tweet_text}"></p>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <a th:href="${res.tweet_link}"
+                   class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    See tweet
+                </a>
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <a th:href="${res.news_url}"><i class="material-icons">explore</i></a>
+                </button>
+            </div>
+            <div class="mdl-card__menu">
+                <p th:text="${res.rank}"></p>
+            </div>
+        </div>
+    </div>
+</div>
