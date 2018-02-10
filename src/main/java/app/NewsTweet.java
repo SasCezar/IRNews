@@ -1,9 +1,7 @@
 package app;
 
-import java.util.Date;
-
 public class NewsTweet {
-    public NewsTweet(String username, Date date, int retweets, String text, String hashtags, String id, String permalink, String news_url, String news_text, String image_url) {
+    public NewsTweet(String username, String date, int retweets, String text, String hashtags, String id, String permalink, String news_url, String news_text, String image_url) {
         this.username = username;
         this.date = date;
         this.retweets = retweets;
@@ -17,7 +15,7 @@ public class NewsTweet {
     }
 
     public String username;
-    public Date date;
+    public String date;
     public int retweets;
     public String text;
     public String hashtags;
@@ -35,11 +33,11 @@ public class NewsTweet {
         this.username = username;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
