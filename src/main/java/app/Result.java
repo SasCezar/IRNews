@@ -6,14 +6,14 @@ public class Result {
     private String image_url;
     private String tweet_text;
     private String news_url;
-    private int rank;
+    private String rank;
     private String user;
     private String retweets;
     private String date;
 
     public Result(int rank,String user, String tweet_link, String image_url, String tweet_text, String news_url, String retweets, String date) {
         this.user = user;
-        this.rank = rank;
+        this.rank = String.valueOf(rank);
         this.tweet_link = tweet_link;
         this.image_url = image_url;
         this.tweet_text = tweet_text;
@@ -54,12 +54,12 @@ public class Result {
         this.news_url = news_url;
     }
 
-    public int getRank() {
-        return rank;
+    public String getRank() {
+        return "Rank: " + rank;
     }
 
     public void setRank(int rank) {
-        this.rank = rank;
+        this.rank = String.valueOf(rank);
     }
 
     public String getUser() {
@@ -71,7 +71,7 @@ public class Result {
     }
 
     public String getRetweets() {
-        return retweets;
+        return "Retweets: " + retweets;
     }
 
     public void setRetweets(String retweets) {

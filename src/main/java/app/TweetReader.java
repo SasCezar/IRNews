@@ -3,11 +3,7 @@ package app;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TweetReader {
@@ -25,7 +21,7 @@ public class TweetReader {
                 String username = values[0];
                 String date = values[1];
                 int retweets = Integer.parseInt(values[2]);
-                String text = values[3];
+                String text = values[3].replaceAll("http:// ", "http://");
                 String hashtags = values[4];
                 String id = values[5];
                 String permalink = values[6];
