@@ -2,12 +2,14 @@ package webapp;
 
 
 import app.Result;
+import org.apache.lucene.document.Document;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import service.CreateResultsService;
 import service.NewsSearcherService;
 
 import java.io.IOException;
@@ -17,8 +19,14 @@ import java.util.Map;
 @Controller
 public class QueryController {
 
+    private final NewsSearcherService searcher;
+    private final CreateResultsService resultsService;
+
     @Autowired
-    private NewsSearcherService searcher;
+    public QueryController(NewsSearcherService searcher, CreateResultsService resultsService) {
+        this.searcher = searcher;
+        this.resultsService = resultsService;
+    }
 
     @RequestMapping("/search")
     public String query(@RequestParam Map<String,String> requestParams, Model model) {
@@ -38,7 +46,8 @@ public class QueryController {
         model.addAttribute("topic", topic);
         model.addAttribute("user", user);
         model.addAttribute("query", query);
-        List<Result> results = searcher.search(query);
+        List<Document> retrivedDocs = searcher.search(query);
+        List<Result> results = resultsService.createResults(retrivedDocs);
         model.addAttribute("results", results);
         return "results";
     }

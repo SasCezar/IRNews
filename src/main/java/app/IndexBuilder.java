@@ -57,10 +57,10 @@ public class IndexBuilder {
             Field formattedText = new StoredField("formattedText", textToHtmlConvertingURLsToLinks(tweet.text));
             document.add(formattedText);
 
-            Field log_eta = new NumericDocValuesField("eta", getTimestamp(tweet.date));
-            document.add(log_eta);
-            Field log_retweets = new NumericDocValuesField("log_retweets", (long) tweet.retweets);
-            document.add(log_retweets);
+            Field eta = new NumericDocValuesField("eta", getTimestamp(tweet.date));
+            document.add(eta);
+            Field sort_retweets = new NumericDocValuesField("sort_retweets", (long) tweet.retweets);
+            document.add(sort_retweets);
 
             iwriter.addDocument(document);
         }
