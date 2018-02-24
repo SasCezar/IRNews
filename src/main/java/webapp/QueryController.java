@@ -2,7 +2,6 @@ package webapp;
 
 
 import app.Result;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +44,10 @@ public class QueryController {
         String query = requestParams.get("query");
         String user = requestParams.get("ic-current-url").split("=")[1];
         String topic = requestParams.get("topic");
+        String personalize = requestParams.getOrDefault("personalization", "off");
 
-        if(query.trim().isEmpty()){
+
+        if (query == null || query.isEmpty()) {
             return "results";
         }
 
@@ -55,11 +56,11 @@ public class QueryController {
         model.addAttribute("query", query);
         List<Document> retrivedDocs = searcher.search(query);
         List<Result> results;
-        try {
-            Document userProfile = userProfileSearchService.getUserTopicProfile(user, topic);
+        Document userProfile = userProfileSearchService.getUserTopicProfile(user, topic);
+        if (personalize.equals("on") && userProfile != null) {
             List<Document> rankedDocs = resultReranking.rank(retrivedDocs, userProfile);
             results = resultsService.createResults(rankedDocs);
-        } catch (ValueException e) {
+        } else {
             results = resultsService.createResults(retrivedDocs);
         }
 

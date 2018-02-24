@@ -34,6 +34,7 @@ public class ResultReranking {
             } else {
                 Map<String, Float> documentFrequencies = countFrequencies(docTerms);
                 Double similarity = new CosineSimilarity().cosineSimilarity(userProfileFrequencies, documentFrequencies);
+                System.out.println(similarity);
                 rankedTopDocs.put(doc, similarity);
             }
         }
@@ -69,20 +70,21 @@ public class ResultReranking {
     }
 
     private Map<String, Float> countFrequencies(List<String> terms) {
-        Map<String, Integer> wordCount = new HashMap<>();
+        Map<String, Float> wordCount = new HashMap<>();
 
         for (String word : terms) {
-            Integer count = wordCount.get(word);
-            wordCount.put(word, (count == null) ? 1 : count + 1);
+            Float count = wordCount.getOrDefault(word, 0f);
+            wordCount.put(word, count + 1);
         }
 
-        Integer normalizingFactor = Collections.max(wordCount.values());
+        Float normalizingFactor = Collections.max(wordCount.values());
         Map<String, Float> normalizedWordCount = new HashMap<>();
         for (String key : wordCount.keySet()) {
-            Integer count = wordCount.get(key);
-            wordCount.put(key, count / normalizingFactor);
+            Float count = wordCount.get(key);
+            Float score = count / normalizingFactor;
+            normalizedWordCount.put(key, score);
         }
 
-        return normalizedWordCount;
+        return wordCount;
     }
 }

@@ -30,9 +30,9 @@ public class CosineSimilarity {
             throw new IllegalArgumentException("Vectors must not be null");
         }
 
-        final Set<String> intersection = getIntersection(leftVector, rightVector);
+        final Set<String> keys = getIntersection(leftVector, rightVector);
 
-        final double dotProduct = dot(leftVector, rightVector, intersection);
+        final double dotProduct = dot(leftVector, rightVector, keys);
         double d1 = 0.0d;
         for (final Float value : leftVector.values()) {
             d1 += Math.pow(value, 2);
@@ -86,14 +86,14 @@ public class CosineSimilarity {
      *
      * @param leftVector   left vector
      * @param rightVector  right vector
-     * @param intersection common elements
+     * @param union common elements
      * @return the dot product
      */
     private double dot(final Map<String, Float> leftVector, final Map<String, Float> rightVector,
-                       final Set<String> intersection) {
+                       final Set<String> union) {
         long dotProduct = 0;
-        for (final CharSequence key : intersection) {
-            dotProduct += leftVector.get(key) * rightVector.get(key);
+        for (final CharSequence key : union) {
+            dotProduct += leftVector.getOrDefault(key, 0f) * rightVector.getOrDefault(key, 0f);
         }
         return dotProduct;
     }

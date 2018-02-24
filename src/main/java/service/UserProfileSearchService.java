@@ -1,6 +1,5 @@
 package service;
 
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -36,7 +35,7 @@ public class UserProfileSearchService {
         Query query = parser.parse("topic:" + topic + " AND userID:" + user_id);
         TopDocs topDoc = searcher.search(query, 1);
         if (topDoc.scoreDocs.length == 0) {
-            throw new ValueException("Topic " + topic + " not present for user " + user_id);
+            return null;
         }
         ScoreDoc hit = topDoc.scoreDocs[0];
 

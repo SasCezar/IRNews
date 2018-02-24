@@ -82,13 +82,39 @@
             <span class="mdl-layout-title">PNSE</span>
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer"></div>
+
             <!-- Navigation -->
             <nav class="mdl-navigation">
-                <a class="mdl-layout__tab is-active" id="politics">Politics</a>
-                <a class="mdl-layout__tab" id="sport">Sport</a>
-                <a class="mdl-layout__tab" id="science">Science</a>
-                <a class="mdl-layout__tab" id="technology">Technology</a>
-                <a class="mdl-layout__tab" id="lifestyle">Lifestyle</a>
+                <a class="mdl-layout__tab is-active" id="politics"
+                   ic-post-to="/compute"
+                   ic-trigger-on="click"
+                   ic-target="#search-result-container"
+                   ic-trigger-delay="10ms"
+                >Politics</a>
+                <a class="mdl-layout__tab" id="sport"
+                   ic-post-to="/compute"
+                   ic-trigger-on="click"
+                   ic-target="#search-result-container"
+                   ic-trigger-delay="10ms"
+                >Sport</a>
+                <a class="mdl-layout__tab" id="science"
+                   ic-post-to="/compute"
+                   ic-trigger-on="click"
+                   ic-target="#search-result-container"
+                   ic-trigger-delay="10ms"
+                >Science</a>
+                <a class="mdl-layout__tab" id="technology"
+                   ic-post-to="/compute"
+                   ic-trigger-on="click"
+                   ic-target="#search-result-container"
+                   ic-trigger-delay="10ms"
+                >Technology</a>
+                <a class="mdl-layout__tab" id="lifestyle"
+                   ic-post-to="/compute"
+                   ic-trigger-on="click"
+                   ic-target="#search-result-container"
+                   ic-trigger-delay="10ms"
+                >Lifestyle</a>
             </nav>
         </div>
     </header>
@@ -99,6 +125,7 @@
             <div class="mdl-cell mdl-cell--4-col">
                 <div id="container" class="mui-container">
                     <div>
+
                         <div class="mui-panel" style="width: 100%">
                             <form id="form" role="form" method="post" autocomplete="off">
                                 <input ic-global-include="#topic" name="topic" id="topic" value="politics"
@@ -108,6 +135,7 @@
                                            id="search"
                                            type="text"
                                            placeholder="Search"
+                                           ic-global-include="#search"
                                            ic-post-to="/compute"
                                            ic-trigger-on="keyup changed"
                                            ic-trigger-delay="10ms"
@@ -117,7 +145,22 @@
                             </form>
                             <!--<span id="search-result-container">
                             </span>-->
+                            <label for="personalization" class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+                                <input type="checkbox"
+                                       id="personalization"
+                                       name="personalization"
+                                       class="mdl-switch__input"
+                                       ic-post-to="/compute"
+                                       ic-global-include="#personalization"
+                                       ic-trigger-on="change"
+                                       ic-trigger-delay="10ms"
+                                       ic-target="#search-result-container"
+                                       checked="checked"
+                                />
+                                <span class="mdl-switch__label">Personalization On/Off</span>
+                            </label>
                         </div>
+
                     </div>
                 </div>
             </div>
