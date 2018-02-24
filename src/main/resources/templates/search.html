@@ -24,50 +24,50 @@
     </style>
     <script>
         $(document).ready(function () {
-            $("#topic1").click(function () {
-                $("#topic2").removeClass("is-active");
-                $("#topic3").removeClass("is-active");
-                $("#topic4").removeClass("is-active");
-                $("#topic5").removeClass("is-active");
-                // $("#topic3").removeClass("is-active");
+            $("#politics").click(function () {
+                $("#sport").removeClass("is-active");
+                $("#science").removeClass("is-active");
+                $("#technology").removeClass("is-active");
+                $("#lifestyle").removeClass("is-active");
+                // $("#science").removeClass("is-active");
                 $(this).addClass("is-active");
-                $("#topic").val("topic1");
+                $("#topic").val("politics");
             });
-            $("#topic2").click(function () {
-                $("#topic1").removeClass("is-active");
-                $("#topic3").removeClass("is-active");
-                $("#topic4").removeClass("is-active");
-                $("#topic5").removeClass("is-active");
-                // $("#topic3").removeClass("is-active");
+            $("#sport").click(function () {
+                $("#politics").removeClass("is-active");
+                $("#science").removeClass("is-active");
+                $("#technology").removeClass("is-active");
+                $("#lifestyle").removeClass("is-active");
+                // $("#science").removeClass("is-active");
                 $(this).addClass("is-active");
-                $("#topic").val("topic2");
+                $("#topic").val("sport");
             });
-            $("#topic3").click(function () {
-                $("#topic1").removeClass("is-active");
-                $("#topic2").removeClass("is-active");
-                $("#topic4").removeClass("is-active");
-                $("#topic5").removeClass("is-active");
-                // $("#topic3").removeClass("is-active");
+            $("#science").click(function () {
+                $("#politics").removeClass("is-active");
+                $("#sport").removeClass("is-active");
+                $("#technology").removeClass("is-active");
+                $("#lifestyle").removeClass("is-active");
+                // $("#science").removeClass("is-active");
                 $(this).addClass("is-active");
-                $("#topic").val("topic3");
+                $("#topic").val("science");
             });
-            $("#topic4").click(function () {
-                $("#topic1").removeClass("is-active");
-                $("#topic2").removeClass("is-active");
-                $("#topic3").removeClass("is-active");
-                $("#topic5").removeClass("is-active");
-                // $("#topic3").removeClass("is-active");
+            $("#technology").click(function () {
+                $("#politics").removeClass("is-active");
+                $("#sport").removeClass("is-active");
+                $("#science").removeClass("is-active");
+                $("#lifestyle").removeClass("is-active");
+                // $("#science").removeClass("is-active");
                 $(this).addClass("is-active");
-                $("#topic").val("topic4");
+                $("#topic").val("technology");
             });
-            $("#topic5").click(function () {
-                $("#topic1").removeClass("is-active");
-                $("#topic2").removeClass("is-active");
-                $("#topic3").removeClass("is-active");
-                $("#topic4").removeClass("is-active");
-                // $("#topic3").removeClass("is-active");
+            $("#lifestyle").click(function () {
+                $("#politics").removeClass("is-active");
+                $("#sport").removeClass("is-active");
+                $("#science").removeClass("is-active");
+                $("#technology").removeClass("is-active");
+                // $("#science").removeClass("is-active");
                 $(this).addClass("is-active");
-                $("#topic").val("topic5");
+                $("#topic").val("lifestyle");
             });
         });
     </script>
@@ -84,11 +84,11 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation -->
             <nav class="mdl-navigation">
-                <a class="mdl-layout__tab is-active" id="topic1">Politics</a>
-                <a class="mdl-layout__tab" id="topic2">Sport</a>
-                <a class="mdl-layout__tab" id="topic3">Science</a>
-                <a class="mdl-layout__tab" id="topic4">Technology</a>
-                <a class="mdl-layout__tab" id="topic5">Lifestyle</a>
+                <a class="mdl-layout__tab is-active" id="politics">Politics</a>
+                <a class="mdl-layout__tab" id="sport">Sport</a>
+                <a class="mdl-layout__tab" id="science">Science</a>
+                <a class="mdl-layout__tab" id="technology">Technology</a>
+                <a class="mdl-layout__tab" id="lifestyle">Lifestyle</a>
             </nav>
         </div>
     </header>
@@ -101,7 +101,8 @@
                     <div>
                         <div class="mui-panel" style="width: 100%">
                             <form id="form" role="form" method="post" autocomplete="off">
-                                <input ic-global-include="#topic" name="topic" id="topic" value="topic1" type="hidden"/>
+                                <input ic-global-include="#topic" name="topic" id="topic" value="politics"
+                                       type="hidden"/>
                                 <div class="mui-textfield">
                                     <input name="query"
                                            id="search"

@@ -1,6 +1,6 @@
 package service;
 
-import app.Result;
+import app.CosineSimilarity;
 import app.TextAnalyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
@@ -9,16 +9,46 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class ResultReranking {
 
-    public List<Result> rank(List<Document> documents, Document userProfile) {
-        return new ArrayList<>();
+    public List<Document> rank(List<Document> documents, Document userProfile) throws IOException {
+        if (documents.size() == 0) {
+            return documents;
+        }
+
+        Map<String, Float> userProfileFrequencies = countFrequencies(getTerms(userProfile, "keywords"));
+        int limit = documents.size() > 10 ? 10 : documents.size();
+        List<Document> topDocuments = documents.subList(0, limit);
+        Map<Document, Double> rankedTopDocs = new HashMap<>();
+
+        for (Document doc : topDocuments) {
+            List<String> docTerms = getTerms(doc, "news_text");
+            if (docTerms.size() == 0) {
+                Double similarity = 0.0d;
+                rankedTopDocs.put(doc, similarity);
+            } else {
+                Map<String, Float> documentFrequencies = countFrequencies(docTerms);
+                Double similarity = new CosineSimilarity().cosineSimilarity(userProfileFrequencies, documentFrequencies);
+                rankedTopDocs.put(doc, similarity);
+            }
+        }
+
+        List<Document> sortedTopDocs = rankedTopDocs.entrySet().stream()
+                .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+
+        List<Document> unsortedDocuments = documents.subList(limit, documents.size());
+
+
+        return Stream.concat(sortedTopDocs.stream(), unsortedDocuments.stream())
+                .collect(Collectors.toList());
     }
 
     private List<String> getTerms(Document document, String field) throws IOException {
@@ -38,7 +68,7 @@ public class ResultReranking {
 
     }
 
-    private Map<String, Integer> countFrequencies(List<String> terms) {
+    private Map<String, Float> countFrequencies(List<String> terms) {
         Map<String, Integer> wordCount = new HashMap<>();
 
         for (String word : terms) {
@@ -46,6 +76,13 @@ public class ResultReranking {
             wordCount.put(word, (count == null) ? 1 : count + 1);
         }
 
-        return wordCount;
+        Integer normalizingFactor = Collections.max(wordCount.values());
+        Map<String, Float> normalizedWordCount = new HashMap<>();
+        for (String key : wordCount.keySet()) {
+            Integer count = wordCount.get(key);
+            wordCount.put(key, count / normalizingFactor);
+        }
+
+        return normalizedWordCount;
     }
 }

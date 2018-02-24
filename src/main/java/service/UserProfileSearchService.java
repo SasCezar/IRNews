@@ -1,5 +1,6 @@
 package service;
 
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -22,7 +23,7 @@ import java.nio.file.Paths;
 
 @Component
 public class UserProfileSearchService {
-    private static Document getUserTopicProfile(String user_id, String topic) throws IOException, ParseException {
+    public Document getUserTopicProfile(String user_id, String topic) throws IOException, ParseException {
         Analyzer analyzer = new StandardAnalyzer();
         final String INDEX_DIRECTORY = new File("resources/profiles_index/").getAbsolutePath();
         Directory index = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
@@ -34,6 +35,9 @@ public class UserProfileSearchService {
 
         Query query = parser.parse("topic:" + topic + " AND userID:" + user_id);
         TopDocs topDoc = searcher.search(query, 1);
+        if (topDoc.scoreDocs.length == 0) {
+            throw new ValueException("Topic " + topic + " not present for user " + user_id);
+        }
         ScoreDoc hit = topDoc.scoreDocs[0];
 
         return searcher.doc(hit.doc);
