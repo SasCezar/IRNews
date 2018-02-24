@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -74,14 +77,6 @@ public class ResultReranking {
         for (String word : terms) {
             Float count = wordCount.getOrDefault(word, 0f);
             wordCount.put(word, count + 1);
-        }
-
-        Float normalizingFactor = Collections.max(wordCount.values());
-        Map<String, Float> normalizedWordCount = new HashMap<>();
-        for (String key : wordCount.keySet()) {
-            Float count = wordCount.get(key);
-            Float score = count / normalizingFactor;
-            normalizedWordCount.put(key, score);
         }
 
         return wordCount;
