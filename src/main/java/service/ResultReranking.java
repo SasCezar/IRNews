@@ -34,7 +34,6 @@ public class ResultReranking {
             } else {
                 Map<String, Float> documentFrequencies = countFrequencies(docTerms);
                 Double similarity = new CosineSimilarity().cosineSimilarity(userProfileFrequencies, documentFrequencies);
-                System.out.println(similarity);
                 rankedTopDocs.put(doc, similarity);
             }
         }
