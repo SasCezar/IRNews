@@ -21,7 +21,7 @@ import java.util.List;
 
 public class UserProfileBuilder {
     public static void main(String[] args) throws IOException {
-        String filePath = new File("resources/users/").getAbsolutePath();
+        String filePath = new File("resources/documents/users/").getAbsolutePath();
         Path path = Paths.get(new File("resources/profiles_index/").getAbsolutePath());
         Directory dir = FSDirectory.open(path);
 

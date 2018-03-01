@@ -20,7 +20,7 @@ import java.util.List;
 
 public class IndexBuilder {
     public static void main(String[] args) throws IOException, ParseException {
-        String filePath = new File("resources/documents/import.csv").getAbsolutePath();
+        String filePath = new File("resources/documents/documents/import.csv").getAbsolutePath();
         Path path = Paths.get(new File("resources/index/").getAbsolutePath());
         Directory dir = FSDirectory.open(path);
 
