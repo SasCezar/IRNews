@@ -7,6 +7,7 @@ In the era of Web 2.0 and with the spreading of Social Media, news company and n
 
 # Usage
 Run:
+
 ```
 java -jar irnews-1.0-SNAPSHOT.war
 ```
